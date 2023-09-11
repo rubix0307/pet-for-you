@@ -1,0 +1,44 @@
+html {
+    display: flex;
+    justify-content: center;
+}
+body {
+    background-color: whitesmoke;
+    max-width: 700px;
+    width: min(700px, 100%);
+}
+h1 {
+    text-align: center;
+}
+#user-data {
+    border: 1px #c9c9c9 solid;
+    border-radius: 20px;
+    padding: 5px 20px;
+    max-width: 350px;
+    margin: 0px auto;
+}
+#user-data .line{
+    display: flex;
+    padding: 5px 20px;
+    justify-content: space-between;
+    height: 24px;
+}
+#user-data .line .value,
+#user-data .line a,
+#user-data .line input{
+    border: 1px #d7d7d7 solid;
+    width: 50%;
+    padding: 2px 10px;
+    border-radius: 10px;
+}
+#user-data .btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 5px;
+}
+#user-data .btns button{
+    max-width: 100%;
+    border-radius: 20px;
+    padding: 3px 15px;
+}
