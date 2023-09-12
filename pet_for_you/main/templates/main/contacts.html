@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block content %}
+    <div class="contacts">
+        <div class="data">
+            <div class="text">
+                <h1 class="caption">Наш адрес</h1>
+                <div class="address">
+                    <div>Киевская обл., Вышгородский р-н</div>
+                    <div>с. Федоровка</div>
+                    <div>Приют для бездомных животных "Сириус"</div>
+                </div>
+            </div>
+            <div class="media">
+                <img src="{% static 'imgs/cat.png' %}" alt="">
+            </div>
+        </div>
+        <iframe src="https://snazzymaps.com/embed/441089" style="border:none;" class="map"></iframe>
+    </div>
+
+{% endblock %}
