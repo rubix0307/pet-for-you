@@ -1,0 +1,19 @@
+{% load static %}
+<header>
+    <a class="left" href="{% url 'main' %}">
+        <img src="{% static 'imgs/logo-cats.webp' %}" alt="" class="logo">
+        <div class="title">
+            <div class="top">Приют для животных</div>
+            <div class="bottom">Сириус</div>
+        </div>
+    </a>
+    <div class="middle">
+        <div class="btns">
+            <a href="{% url 'main' %}#donation">Пожертвования</a>
+            <a href="{% url 'contacts' %}">Контакты</a>
+        </div>
+    </div>
+    <div class="right">
+        <a class="profile" href="{% url 'profile' %}">Аккаунт</a>
+    </div>
+</header>
