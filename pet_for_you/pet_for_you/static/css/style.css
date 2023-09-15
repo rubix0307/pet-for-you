@@ -114,6 +114,7 @@ header .right .profile:hover {
     position: relative;
     max-width: 100%;
     max-height: 100svh;
+    min-height: 100svh;
     display: flex;
     justify-content: center;
     margin: 50px;
@@ -150,7 +151,7 @@ footer {
     border-radius: 40px 40px 0 0;
     bottom: 0;
     width: 100%;
-    height: 150px;
+    height: 90px;
     color: white;
     background-color: black;
     display: flex;
@@ -171,6 +172,23 @@ footer .data{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+.contacts .data .media {
+    width: 30%;
+}
+.contacts .data .media img{
+    margin-top: 40px;
+    margin-bottom: -40px;
+    width: 100%;
+    height: auto;
+}
+.contacts .geo{
+    font-size: 20px;
+    margin: 5px 50px;
+    height: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #00a32e;
 }
 .contacts .data .text {
     display: flex;
@@ -195,11 +213,42 @@ footer .data{
     height: 500px;
     border-radius: 40px;
 }
+.auth-forms {
+    width: 400px;
+    margin: 0 auto;
+}
+.auth-forms form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+.auth-forms form label,
+.auth-forms form input{
+    border-radius: 10px;
+    padding: 3px 10px;
+    font-size: 18px;
+}
+.auth-forms form .line{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+.auth-forms form .btns{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.auth-forms form .btns .btn{
+    margin-top: 5px;
+}
 #user-data {
     border: 1px #c9c9c9 solid;
     border-radius: 20px;
     padding: 5px 20px;
-    max-width: 350px;
+    max-width: 421px;
     margin: 0px auto;
 }
 #user-data .line{
@@ -212,7 +261,7 @@ footer .data{
 #user-data .line a,
 #user-data .line input{
     border: 1px #d7d7d7 solid;
-    width: 50%;
+    width: 70%;
     padding: 2px 10px;
     border-radius: 10px;
 }
@@ -227,6 +276,32 @@ footer .data{
     border-radius: 20px;
     padding: 3px 15px;
 }
+
+
+
+
+
+.btn {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: 0.2s;
+    border: 2px #979797 solid;
+    border-radius: 15px;
+    padding: 3px 10px;
+    background-color: transparent;
+    color: var(--main-color);
+    cursor: default;
+}
+.btn:hover{
+    border: 2px transparent solid;
+    background-color: #8d95ff;
+    color: #241ea9;
+}
+
+
+
 
 @keyframes rotateCounterclockwise {
     from {
