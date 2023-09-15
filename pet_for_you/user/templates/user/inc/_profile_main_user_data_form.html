@@ -3,41 +3,25 @@
         {% csrf_token %}
         <div class="line">
             <label for="firstName">Имя:</label>
-            <input type="text" id="firstName" name="firstName" value="Иван">
+            <input type="text" id="firstName" name="firstName" value="{{ request.user.first_name }}">
         </div>
         <div class="line">
             <label for="lastName">Фамилия:</label>
-            <input type="text" id="lastName" name="lastName" value="Иванов">
-        </div>
-        <div class="line">
-            <label for="birthdate">Дата рождения:</label>
-            <input type="text" id="birthdate" name="birthdate" value="01.01.1990">
-        </div>
-        <div class="line">
-            <label for="gender">Пол:</label>
-            <input type="text" id="gender" name="gender" value="Мужской">
-        </div>
-        <div class="line">
-            <label for="address">Адрес:</label>
-            <input type="text" id="address" name="address" value="ул. Примерная, 123">
-        </div>
-        <div class="line">
-            <label for="city">Город:</label>
-            <input type="text" id="city" name="city" value="Примероград">
+            <input type="text" id="lastName" name="lastName" value="{{ request.user.last_name }}">
         </div>
         <div class="line">
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" value="ivanov@example.com">
+            <input type="text" id="email" name="email" value="{{ request.user.email }}">
         </div>
         <div class="line">
             <label for="phone">Телефон:</label>
-            <input type="text" id="phone" name="phone" value="+380664567890">
+            <input type="text" id="phone" name="phone" value="{{ request.user.phone }}">
         </div>
 
 
         <div class="btns">
             <button type="submit">Сохранить</button>
-            <button hx-trigger="click" hx-get="/user/profile_main_user_data/" hx-target="#user-data" hx-swap="outerHTML">Отмена</button>
+            <button hx-trigger="click" hx-get="{% url 'profile_main_user_data' %}" hx-target="#user-data" hx-swap="outerHTML">Отмена</button>
         </div>
     </form>
 </div>
