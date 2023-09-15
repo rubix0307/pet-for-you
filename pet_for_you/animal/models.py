@@ -26,4 +26,4 @@ class Schedule(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     animal_id = models.ForeignKey(Animal, on_delete=models.CASCADE)
-    user_id = models.ForeignKey('user.user', on_delete=models.CASCADE)
+    user_id = models.ForeignKey('user.customuser', on_delete=models.CASCADE)
