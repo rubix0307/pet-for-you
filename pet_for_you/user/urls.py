@@ -6,4 +6,10 @@ urlpatterns = [
     path('', views.profile, name='profile'),
     path('profile_main_user_data/', views.profile_main_user_data, name='profile_main_user_data'),
     path('profile_main_user_data_form/', views.profile_main_user_data_form, name='profile_main_user_data_form'),
+
+    path('auth/', views.user_auth, name='user_auth'),
+    path('auth/sign_in/', views.user_sign_in, name='user_sign_in'),
+    path('auth/register/', views.user_register, name='user_register'),
+
+    path('logout/', views.user_logout, name='logout'),
 ]
