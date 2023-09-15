@@ -16,5 +16,5 @@ class Feedback(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField()
     media = models.CharField(max_length=255)
-    user_id = models.ForeignKey('user.user', on_delete=models.CASCADE)
+    user_id = models.ForeignKey('user.customuser', on_delete=models.CASCADE)
     animal_id = models.ForeignKey('animal.animal', on_delete=models.CASCADE, null=True)
