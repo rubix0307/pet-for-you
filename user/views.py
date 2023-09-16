@@ -28,7 +28,7 @@ def user_sign_in(request):
     if request.method == 'POST':
         form = UserSignInForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
+            email = form.cleaned_data['username']
             password = form.cleaned_data['password']
 
             authenticated_user = authenticate(request, email=email, password=password)

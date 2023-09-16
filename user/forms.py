@@ -5,22 +5,21 @@ from .models import CustomUser
 
 
 class UserSignInForm(forms.ModelForm):
+    username = forms.EmailField(label='Почта', widget=forms.TextInput(attrs={'autofocus': True}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
 
     class Meta:
         model = CustomUser
-        fields = ['email', 'password']
+        fields = ['username','password']
 
     def clean(self):
         cleaned_data = super().clean()
-        email = cleaned_data.get('email')
+        email = cleaned_data.get('username')
         password = cleaned_data.get('password')
 
         authenticated_user = authenticate(email=email, password=password)
         if not authenticated_user:
             raise forms.ValidationError('Пароли не совпадают.')
-        else:
-            cleaned_data.update(dict(password=authenticated_user.password))
 
         return cleaned_data
 
