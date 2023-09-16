@@ -28,6 +28,8 @@ class CustomUser(AbstractBaseUser):
     email = models.EmailField(unique=True, verbose_name='Почта')
     phone = models.CharField(max_length=20, verbose_name='Телефон')
     media = models.CharField(max_length=255, null=True, blank=True, verbose_name='Фото')
+    is_staff = models.BooleanField(default=0, verbose_name='Сотрудник')
+    is_superuser = models.BooleanField(default=0, verbose_name='Супер пользователь')
 
     objects = CustomUserManager()
 
