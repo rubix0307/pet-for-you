@@ -277,7 +277,30 @@ footer .data{
     padding: 3px 15px;
 }
 
-
+.blog-welcome {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 50px;
+    height: 50svh;
+    background-color: orange;
+    border-radius: 0 0 40px 40px;
+    overflow: hidden;
+    margin-top: -100px;
+}
+.blog-welcome .caption{
+    font-size: 10svh;
+    max-width: 30%;
+    text-align: center;
+    font-family: Caveat, cursive;
+}
+.blog-welcome .media{
+    max-height: 80%;
+}
+.blog-welcome .media img{
+    max-height: 100%;
+}
 
 
 
