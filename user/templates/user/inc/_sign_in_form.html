@@ -5,7 +5,7 @@
 
         <div class="btns">
             <button class="btn" type="submit">Войти</button>
-            <button class="btn"  hx-trigger="click" hx-get="{% url 'user_register' %}" hx-target="#auth-forms" hx-swap="outerHTML">Нет аккаунта?</button>
+            <button class="btn" hx-trigger="click" hx-get="{% url 'user_register_html_form' %}" hx-target="#auth-forms" hx-swap="outerHTML">Нет аккаунта?</button>
         </div>
     </form>
 </div>
