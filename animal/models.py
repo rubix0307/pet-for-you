@@ -13,7 +13,7 @@ class Animal(models.Model):
 
 class AnimalMedia(models.Model):
     id = models.AutoField(primary_key=True)
-    animal_id = models.ForeignKey(Animal, on_delete=models.CASCADE)
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
     media_link = models.CharField(max_length=255) # edit
     main = models.BooleanField()
 
@@ -25,5 +25,5 @@ class Schedule(models.Model):
     id = models.AutoField(primary_key=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    animal_id = models.ForeignKey(Animal, on_delete=models.CASCADE)
-    user_id = models.ForeignKey('user.customuser', on_delete=models.CASCADE)
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
+    user = models.ForeignKey('user.customuser', on_delete=models.CASCADE)
