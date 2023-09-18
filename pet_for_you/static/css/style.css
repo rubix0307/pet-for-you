@@ -47,6 +47,12 @@ header .left .title .bottom{
 header .left .logo {
     height: 50px;
 }
+.btns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 .btns a,
 header .right .profile {
     font-size: 16px;
@@ -60,6 +66,7 @@ header .right .profile {
     background-color: transparent;
     color: var(--main-color);
     cursor: default;
+    margin: 0 10px;
 
 }
 .btns a:hover,
@@ -301,8 +308,23 @@ footer .data{
 .blog-welcome .media img{
     max-height: 100%;
 }
-
-
+.feed {
+    width: min(100%, 500px);
+    margin: 20px auto;
+}
+.feed .post {
+    margin: 30px 0;
+    font-size: 20px;
+    border: 4px #a5a5a5aa solid;
+    padding: 20px;
+    border-radius: 30px
+}
+.feed .post .title{
+    margin: 5px 0;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: Caveat, cursive;
+}
 
 .btn {
     font-size: 16px;
