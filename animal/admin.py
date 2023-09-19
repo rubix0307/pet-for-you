@@ -1,3 +1,27 @@
 from django.contrib import admin
+from .models import Animal, AnimalMedia, Sex, Schedule
 
-# Register your models here.
+
+@admin.register(Animal)
+class AnimalAdmin(admin.ModelAdmin):
+    list_display = ('id','type','sex','age','breed','availability','description','healthy')
+    list_display_links = ('id',)
+    ordering = ('id',)
+
+@admin.register(AnimalMedia)
+class AnimalMediaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'animal', 'media_link', 'main')
+    list_display_links = ('id',)
+    ordering = ('id',)
+
+@admin.register(Sex)
+class SexAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    list_display_links = ('name',)
+    ordering = ('id',)
+
+@admin.register(Schedule)
+class ScheduleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'start_time','end_time','animal','user',)
+    list_display_links = ('id',)
+    ordering = ('id',)
