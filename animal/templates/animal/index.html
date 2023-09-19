@@ -1,0 +1,17 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="feed">
+
+        {% for animal in animals %}
+            <div class="animal-card">
+                <div class="data">
+                    <div class="sex"><a href="{% url 'animal_index' %}?sex={{ animal.sex.name|urlencode }}">#{{ animal.sex.name }}</a></div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
