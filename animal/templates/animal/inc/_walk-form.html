@@ -1,0 +1,18 @@
+
+
+
+<form method="post" class="walk-form" hx-post="/animal/get_walk_form/" hx-swap="outerHTML" hx-trigger="change">
+    <div class="title">Прогулка</div>
+    {% csrf_token %}
+
+    <label for="date">{{ form.date.label }}</label>
+    {{ form.date }}
+
+    <label for="duration">{{ form.duration.label }}</label>
+    {{ form.duration }}
+
+    <label for="start_in" class="row">{{ form.start_in.label|safe }}</label>
+    {{ form.start_in }}
+
+    <button type="submit">Запланировать</button>
+</form>

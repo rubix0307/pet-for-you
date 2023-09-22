@@ -6,11 +6,18 @@
     <div class="feed">
 
         {% for animal in animals %}
-            <div class="animal-card">
-                <div class="data">
-                    <div class="sex"><a href="{% url 'animal_index' %}?sex={{ animal.sex.name|urlencode }}">#{{ animal.sex.name }}</a></div>
+            <a href="{% url 'animal_detail' animal_id=animal.id %}">
+                <div class="animal-card">
+                    <img src="https://dogcat.com.ua/fmc/orig/e779/d723/6dd0/marq-img-14.webp" alt="">
+                    <div class="data">
+                            <a class="sex" href="{% url 'animal_index' %}?sex={{ animal.sex.name|urlencode }}">#{{ animal.sex.name }}</a>
+                            <div class="type">{{ animal.type.name }} ({{ animal.breed }})</div>
+                    </div>
+                    <div class="name">{{ animal.name }}</div>
+                    <div class="availability">Свободна: {% if animal.availability %}Да{% else %}Нет{% endif %}</div>
+                    <div class="healthy">Здоровый: {% if animal.healthy %}Да{% else %}Нет{% endif %}</div>
                 </div>
-            </div>
+            </a>
         {% endfor %}
 
     </div>

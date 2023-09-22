@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="animal-detail">
+{#        <img src="https://dogcat.com.ua/fmc/orig/e779/d723/6dd0/marq-img-14.webp" alt="">#}
+
+        <div class="name">{{ animal.name }}</div>
+        <div class="type">{{ animal.type.name }} ({{ animal.breed }})</div>
+        <div>Пол:<a class="sex" href="{% url 'animal_index' %}?sex={{ animal.sex.name|urlencode }}">{{ animal.sex.name }}</a></div>
+
+        <div class="availability">Свободна: {% if animal.availability %}Да{% else %}Нет{% endif %}</div>
+        <div class="healthy">Здоровый: {% if animal.healthy %}Да{% else %}Нет{% endif %}</div>
+
+        <div class="description">{{ animal.description|linebreaks }}</div>
+
+        {% include 'animal/inc/_walk-form.html' %}
+    </div>
+
+
+{% endblock %}
