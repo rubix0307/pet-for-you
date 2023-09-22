@@ -5,14 +5,14 @@
     <div class="title">Прогулка</div>
     {% csrf_token %}
 
-    <label for="date">{{ form.date.label }}</label>
-    {{ form.date }}
+    <label for="date">{{ walk_form.date.label }}</label>
+    {{ walk_form.date }}
 
-    <label for="duration">{{ form.duration.label }}</label>
-    {{ form.duration }}
+    <label for="duration">{{ walk_form.duration.label }}</label>
+    {{ walk_form.duration }}
 
-    <label for="start_in" class="row">{{ form.start_in.label|safe }}</label>
-    {{ form.start_in }}
+    <label for="start_in" class="row">{{ walk_form.start_in.label|safe }}</label>
+    {{ walk_form.start_in }}
 
     <button type="submit">Запланировать</button>
 </form>

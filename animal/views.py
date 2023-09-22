@@ -30,20 +30,20 @@ def get_walk_form(request: WSGIRequest, animal=None, only_form=False):
         duration_min=initial_values['duration'],
     )
 
-    form = PetWalkForm(initial=initial_values)
-    form.fields['start_in'].choices = [(i, i) for i in start_in]
-    form.fields['start_in'].label += f'''<div>Мест: {len(form.fields['start_in'].choices)}</div>'''
+    walk_form = PetWalkForm(initial=initial_values)
+    walk_form.fields['start_in'].choices = [(i, i) for i in start_in]
+    walk_form.fields['start_in'].label += f'''<div>Мест: {len(walk_form.fields['start_in'].choices)}</div>'''
 
     if only_form:
         return form
-    return render(request, 'animal/inc/_walk-form.html', context=dict(form=form))
+    return render(request, 'animal/inc/_walk-form.html', context=dict(walk_form=walk_form))
 
 def animal_detail(request: WSGIRequest, animal_id):
 
     animal = Animal.objects.get(id=animal_id)
     context = dict(
         animal=animal,
-        form=get_walk_form(request, animal, only_form=True),
+        walk_form=get_walk_form(request, animal, only_form=True),
     )
 
     return render(request, 'animal/detail.html', context=context)
