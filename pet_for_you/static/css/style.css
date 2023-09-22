@@ -311,6 +311,9 @@ footer .data{
 .feed {
     width: min(100%, 500px);
     margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .feed .post {
     margin: 30px 0;
@@ -325,7 +328,44 @@ footer .data{
     font-weight: bold;
     font-family: Caveat, cursive;
 }
+.animal-card {
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 40px;
+    transition: 0.8s;
+}
 
+.animal-card:hover {
+    border-radius: 20px;
+    background-color: #8d95ff;
+}
+.animal-card img{
+    max-width: 100%;
+    height: auto;
+    border-radius: 40px;
+    transition: 0.8s;
+}
+.animal-card:hover img{
+    max-width: 100%;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+.animal-card .data{
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+}
+.animal-card .name{
+    max-width: 100%;
+    font-size: 26px;
+    font-weight: bold;
+    font-family: Caveat, cursive;
+
+}
 .btn {
     font-size: 16px;
     font-weight: bold;
@@ -344,10 +384,75 @@ footer .data{
     background-color: #8d95ff;
     color: #241ea9;
 }
+.animal-detail {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.animal-detail img {
+    max-width: 400px;
+    border-radius: 0 0 30px 30px;
+}
+.animal-detail .name {
+    margin-top: 30px;
+    font-size: 26px;
+    font-weight: bold;
+    font-family: Caveat, cursive;
+}
+.animal-detail .description{
+    width: min(100%, 567px);
+    margin: 20px 0;
+    font-family: Caveat, cursive;
+    font-size: 18px;
+    padding-left: 25px;
+}
 
+.walk-form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: min(100%, calc(360px));
+    border: 6px #68686861 solid;
+    border-radius: 20px;
+}
+.walk-form .title{
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: Caveat, cursive;
 
-
-
+}
+.walk-form input,
+.walk-form select{
+    margin-bottom: 15px;
+    font-size: 18px;
+    border: 3px #68686861 solid;
+    padding-left: 5px;
+}
+.walk-form label {
+    font-size: 20px;
+    padding-left: 5px;
+}
+.walk-form button[type='submit'] {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: Caveat, cursive;
+    border: 4px #68686861 solid;
+    border-radius: 0 0 5px 5px;
+    transition: 0.2s;
+    padding: 10px 0;
+}
+.walk-form button[type='submit']:hover {
+    background-color: #8d95ff30;
+    border-color: #8d95ff;
+}
+label.row {
+    display: flex;
+    justify-content: space-between;
+}
 @keyframes rotateCounterclockwise {
     from {
         transform: rotate(0deg);
