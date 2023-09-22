@@ -1,47 +1,61 @@
 import datetime as dt
-from typing import List
+from typing import List, Tuple, Union
 
+def f_time(num:Union[int | str]):
+    return num if int(num) > 9 else f'0{num}'
 
 def round_minutes_to_nearest_value(d_time, value=15):
     minute = (d_time.minute + int(value/2)) // value * value
+    if minute == 60:
+        minute = 0
+        d_time += dt.timedelta(hours=1)
     rounded_dt = d_time.replace(minute=minute, second=0, microsecond=0)
     return rounded_dt
 
-def get_available_pet_walk_time(walk_times: List[dt.datetime], quarters: int, min_start_walk_hour=8, max_end_walk_hour=18):
-    if len(walk_times) == 2 and quarters > 0:
 
-        start_walk, end_walk = walk_times
-        start_walk = start_walk if start_walk.hour >= min_start_walk_hour else start_walk.replace(hour=min_start_walk_hour, minute=0)
-        end_walk = end_walk if end_walk.hour <= max_end_walk_hour else end_walk.replace(hour=max_end_walk_hour, minute=0)
+def get_available_pet_walk_time(
+        selected_day: dt.datetime,
+        walk_times: List[Tuple[dt.datetime, dt.datetime]],
+        duration_min:int,
+        work_start_hour:int=8,
+        work_end_hour:int=18):
 
-        if start_walk.hour >= min_start_walk_hour:
-            quarter_time = 15
-            walking_time = quarters * quarter_time
-            last_booking = end_walk - dt.timedelta(minutes=walking_time)
+    work_end = dt.datetime.now().replace(hour=work_end_hour, minute=0, second=0, microsecond=0)
+    available_times = []
 
-            available_pet_walk_time = []
-            while last_booking >= start_walk:
-                formatted_minutes = last_booking.minute if last_booking.minute > 9 else f'0{last_booking.minute}'
-                available_pet_walk_time.append(f'{last_booking.hour}:{formatted_minutes}')
-                last_booking -= dt.timedelta(minutes=quarter_time)
+    current_time = round_minutes_to_nearest_value(
+        selected_day.replace(hour=selected_day.hour if work_start_hour <= selected_day.hour else work_start_hour)
+    )
 
-            return available_pet_walk_time[::-1]
-    else:
-        return []
+    while current_time + dt.timedelta(minutes=duration_min) <= work_end:
+
+        is_available = True
+        for walk_time in walk_times:
+
+            if walk_time[0] <= current_time < walk_time[1]:
+                is_available = False
+                break
+
+        if is_available:
+            available_times.append(f'{f_time(current_time.hour)}:{f_time(current_time.minute)}')
+
+        current_time += dt.timedelta(minutes=duration_min)
+
+    return available_times
 
 
-walk_times = [
-    round_minutes_to_nearest_value(dt.datetime(2023, 8, 1, 7, 8)),
-    round_minutes_to_nearest_value(dt.datetime(2023, 8, 1, 9, 1)),
-]
-for i in range(-1, 5):
-    print(i, get_available_pet_walk_time(walk_times, i))
-
-print()
-
-walk_times = [
-    round_minutes_to_nearest_value(dt.datetime(2023, 8, 1, 17, 4)),
-    round_minutes_to_nearest_value(dt.datetime(2023, 8, 1, 22, 6)),
-]
-for i in range(-1, 5):
-    print(i, get_available_pet_walk_time(walk_times, i))
+# selected_day = dt.datetime(2023, 9, 21, 8, 0)
+# walk_times = [
+#     (dt.datetime(2023, 9, 21, 8, 0), dt.datetime(2023, 9, 21, 8, 15)),
+#     (dt.datetime(2023, 9, 21, 8, 15), dt.datetime(2023, 9, 21, 8, 30)),
+#     (dt.datetime(2023, 9, 21, 9, 0), dt.datetime(2023, 9, 21, 9, 45)),
+#     (dt.datetime(2023, 9, 21, 10, 0), dt.datetime(2023, 9, 21, 10, 30)),
+# ]
+#
+# available_times = get_available_pet_walk_time(
+#     selected_day,
+#     walk_times,
+#     duration_min=15,
+#     work_start_hour=8,
+#     work_end_hour=11)
+# print(available_times)
