@@ -5,16 +5,17 @@ from .models import CustomUser
 
 
 class UserSignInForm(forms.ModelForm):
-    username = forms.EmailField(label='Почта', widget=forms.TextInput(attrs={'autofocus': True}))
+    email = forms.EmailField(label='Почта', widget=forms.TextInput(attrs={'autofocus': True}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
 
     class Meta:
         model = CustomUser
-        fields = ['username','password']
+        fields = ['email','password']
 
     def clean(self):
         cleaned_data = super().clean()
-        email = cleaned_data.get('username')
+
+        email = cleaned_data.get('email')
         password = cleaned_data.get('password')
 
         authenticated_user = authenticate(email=email, password=password)

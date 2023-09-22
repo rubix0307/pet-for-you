@@ -35,6 +35,7 @@ def user_sign_in(request: WSGIRequest):
         if authenticated_user:
             login(request, authenticated_user)
             return redirect('profile')
+    return user_auth(request)
 
 def user_register(request: WSGIRequest):
     form = UserRegistrationForm(request.POST)
