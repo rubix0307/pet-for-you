@@ -3,7 +3,8 @@ from django.db import models
 
 class Animal(models.Model):
     id = models.AutoField(primary_key=True)
-    type = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, null=True)
+    type = models.ForeignKey('AnimalType', on_delete=models.CASCADE)
     sex = models.ForeignKey('Sex', on_delete=models.CASCADE)
     age = models.PositiveIntegerField()
     breed = models.CharField(max_length=255)
@@ -12,7 +13,7 @@ class Animal(models.Model):
     healthy = models.BooleanField()
 
     def __str__(self):
-        return str(self.id)
+        return f'{self.id} - {self.name}'
 
     class Meta:
         verbose_name = 'Животное'
@@ -21,7 +22,7 @@ class Animal(models.Model):
 class AnimalMedia(models.Model):
     id = models.AutoField(primary_key=True)
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
-    media_link = models.CharField(max_length=255) # edit
+    media_link = models.CharField(max_length=255)  # edit
     main = models.BooleanField()
 
     def __str__(self):
@@ -41,6 +42,17 @@ class Sex(models.Model):
     class Meta:
         verbose_name = 'Пол'
         verbose_name_plural = 'Пол'
+
+class AnimalType(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Тип'
+        verbose_name_plural = 'Типы'
 
 class Schedule(models.Model):
     id = models.AutoField(primary_key=True)
