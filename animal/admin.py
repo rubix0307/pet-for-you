@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Animal, AnimalMedia, Sex, Schedule
+from .models import Animal, AnimalMedia, Sex, Schedule, AnimalType
 
 
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
-    list_display = ('id','type','sex','age','breed','availability','description','healthy')
+    list_display = ('id','name','type','sex','age','breed','availability','description','healthy')
     list_display_links = ('id',)
     ordering = ('id',)
 
@@ -16,6 +16,12 @@ class AnimalMediaAdmin(admin.ModelAdmin):
 
 @admin.register(Sex)
 class SexAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    list_display_links = ('name',)
+    ordering = ('id',)
+
+@admin.register(AnimalType)
+class AnimalTypeAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('name',)
     ordering = ('id',)
