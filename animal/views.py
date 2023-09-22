@@ -35,7 +35,7 @@ def get_walk_form(request: WSGIRequest, animal=None, only_form=False):
     walk_form.fields['start_in'].label += f'''<div>Мест: {len(walk_form.fields['start_in'].choices)}</div>'''
 
     if only_form:
-        return form
+        return walk_form
     return render(request, 'animal/inc/_walk-form.html', context=dict(walk_form=walk_form))
 
 def animal_detail(request: WSGIRequest, animal_id):
