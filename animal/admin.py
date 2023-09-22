@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Animal, AnimalMedia, Sex, Schedule, AnimalType
+from .models import Animal, AnimalMedia, Sex, Schedule, AnimalType, Feedback
 
 
 @admin.register(Animal)
@@ -31,3 +31,9 @@ class ScheduleAdmin(admin.ModelAdmin):
     list_display = ('id', 'start_time','end_time','animal','user',)
     list_display_links = ('id',)
     ordering = ('id',)
+
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'user', 'animal')
+    list_display_links = ('title',)
+    ordering = ('-id',)

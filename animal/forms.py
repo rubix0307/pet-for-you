@@ -1,5 +1,12 @@
 import datetime as dt
 from django import forms
+from .models import Feedback
+
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ['title','text','media',]
 
 
 class PetWalkForm(forms.Form):

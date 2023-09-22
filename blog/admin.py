@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tag, Blog, Feedback
+from .models import Tag, Blog
 # Register your models here.
 
 @admin.register(Tag)
@@ -14,9 +14,4 @@ class BlogAdmin(admin.ModelAdmin):
     list_display_links = ('title',)
     ordering = ('-id',)
 
-@admin.register(Feedback)
-class FeedbackAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'user', 'animal')
-    list_display_links = ('title',)
-    ordering = ('-id',)
 

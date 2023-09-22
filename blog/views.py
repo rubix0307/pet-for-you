@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.contrib import messages
 from django.core.handlers.wsgi import WSGIRequest
-
-from blog.models import Blog, Tag
+from .models import Blog, Tag
 
 
 def blog_index(request: WSGIRequest):
