@@ -391,6 +391,13 @@ footer .data{
     justify-content: center;
     align-items: center;
 }
+.forms_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
 .animal-detail img {
     max-width: 400px;
     border-radius: 0 0 30px 30px;
@@ -408,16 +415,19 @@ footer .data{
     font-size: 18px;
     padding-left: 25px;
 }
-
+.feedback-form,
 .walk-form {
-    margin-top: 30px;
+    margin: 30px 20px;
     display: flex;
     flex-direction: column;
     padding: 15px;
     width: min(100%, calc(360px));
     border: 6px #68686861 solid;
     border-radius: 20px;
+    transition: 0.5s;
 }
+
+.feedback-form .title,
 .walk-form .title{
     text-align: center;
     font-size: 24px;
@@ -425,33 +435,89 @@ footer .data{
     font-family: Caveat, cursive;
 
 }
+.feedback-form textarea{
+
+    resize:vertical;
+    min-height: 80px;
+    max-height: 400px;
+    height: 80px;
+
+}
+
+.feedback-form textarea,
+.feedback-form input,
+.feedback-form select,
 .walk-form input,
 .walk-form select{
     margin-bottom: 15px;
     font-size: 18px;
     border: 3px #68686861 solid;
     padding-left: 5px;
+    transition: 0.5s;
 }
+.feedback-form:hover,
+.walk-form:hover,
+.feedback-form:hover textarea,
+.feedback-form:hover input,
+.feedback-form:hover select,
+.walk-form:hover input,
+.walk-form:hover select,
+.feedback-form:hover button[type='submit'],
+.walk-form:hover button[type='submit'] {
+    border-color: orange;
+}
+.feedback-form label,
 .walk-form label {
     font-size: 20px;
     padding-left: 5px;
 }
+.feedback-form button[type='submit'],
 .walk-form button[type='submit'] {
     font-size: 22px;
     font-weight: bold;
     font-family: Caveat, cursive;
     border: 4px #68686861 solid;
     border-radius: 0 0 5px 5px;
-    transition: 0.2s;
+    transition: 0.5s;
     padding: 10px 0;
 }
+
+.feedback-form button[type='submit']:hover,
 .walk-form button[type='submit']:hover {
     background-color: #8d95ff30;
-    border-color: #8d95ff;
 }
+
 label.row {
     display: flex;
     justify-content: space-between;
+}
+
+
+
+.feedbacks {
+    width: min(100%, 600px);
+    margin: 50px 0;
+}
+.feedbacks .feedback {
+    padding: 30px;
+    background-color: #e1e1e1;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    transition: 0.5s;
+    border: 6px transparent solid;
+}
+.feedbacks .feedback:hover {
+    border-color: orange;
+}
+.feedbacks .feedback .title {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: Caveat, cursive;
+    text-align: center;
+}
+.feedbacks .feedback .text {
+    font-size: 20px;
+
 }
 @keyframes rotateCounterclockwise {
     from {
