@@ -6,7 +6,7 @@ from .models import Feedback
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = ['title','text','media',]
+        fields = ('title','text','user','animal')
 
 
 class PetWalkForm(forms.Form):

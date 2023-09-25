@@ -1,0 +1,13 @@
+<form action="{% url 'animal_feedback' animal_id=animal.id %}" method="post" class="feedback-form">
+
+    <div class="title">Отзыв</div>
+    {% csrf_token %}
+
+    <label>{{ feedback_form.title.label }}</label>
+    {{ feedback_form.title }}
+
+    <label>{{ feedback_form.text.label }}</label>
+    {{ feedback_form.text }}
+
+    <button type="submit">Отправить</button>
+</form>

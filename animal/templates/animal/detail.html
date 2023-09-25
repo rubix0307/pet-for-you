@@ -14,8 +14,12 @@
 
         <div class="description">{{ animal.description|linebreaks }}</div>
 
-        {% include 'animal/inc/_walk-form.html' %}
+        <div class="forms_row">
+            {% include 'animal/inc/_walk-form.html' %}
+            {% include 'animal/inc/_feedback-form.html' %}
+        </div>
+
+        {% include 'animal/inc/_feedbacks.html' %}
+
     </div>
-
-
 {% endblock %}
