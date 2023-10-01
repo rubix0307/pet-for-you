@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm, UserLoginForm
+from .models import CustomUser
 
 
 @login_required(login_url='user_auth')
@@ -31,10 +32,12 @@ def user_auth(request: WSGIRequest):
     context = dict(FormNames=FormNames)
 
     if request.method == 'POST':
-        if FormNames.LOGIN.value in request.POST:
-            context['form_name'] = FormNames.LOGIN.value
-
+        if 'password2' not in request.POST:
             form = UserLoginForm(request.POST)
+
+            context['form_name'] = FormNames.LOGIN.value
+            context['form'] = form
+
             if form.is_valid():
                 email = form.cleaned_data['email']
                 password = form.cleaned_data['password']
@@ -45,14 +48,17 @@ def user_auth(request: WSGIRequest):
                 else:
                     form.add_error(None, 'Неверный email или пароль')
 
-        elif FormNames.REGISTER.value in request.POST:
-            context['form_name'] = FormNames.REGISTER.value
-
+        else:
             form = RegistrationForm(request.POST)
+
+            context['form_name'] = FormNames.REGISTER.value
+            context['form'] = form
+
             if form.is_valid():
                 form.save()
                 return redirect('profile')
-    else:
+
+    if not context.get('form'):
         context['form_name'] = FormNames.LOGIN.value
         context['form'] = UserLoginForm()
 
