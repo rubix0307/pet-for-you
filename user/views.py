@@ -1,8 +1,9 @@
+from enum import Enum
 from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistrationForm, UserSignInForm
+from .forms import RegistrationForm, UserLoginForm
 
 
 @login_required(login_url='user_auth')
@@ -15,40 +16,47 @@ def get_profile_main_html_data(request: WSGIRequest):
 def get_profile_main_html_form(request: WSGIRequest):
     return render(request, 'user/inc/_profile_main_data_form.html')
 
-def get_sign_in_html_form(request: WSGIRequest):
-    return render(request, 'user/inc/_sign_in_form.html', context=dict(form=UserSignInForm()))
+
+class FormNames(Enum):
+    LOGIN = "login_form"
+    REGISTER = 'registration_form'
+
+def get_login_html_form(request: WSGIRequest):
+    return render(request, 'user/inc/_login_form.html', context=dict(form=UserLoginForm(), form_name=FormNames.LOGIN.value))
 
 def get_register_html_form(request: WSGIRequest):
-    return render(request, 'user/inc/_register_form.html', context=dict(form=UserRegistrationForm()))
+    return render(request, 'user/inc/_register_form.html', context=dict(form=RegistrationForm(), form_name=FormNames.REGISTER.value))
 
 def user_auth(request: WSGIRequest):
-    form = UserSignInForm()
-    return render(request, 'user/auth.html', context=dict(form=form))
+    context = dict(FormNames=FormNames)
 
-def user_sign_in(request: WSGIRequest):
-    form = UserSignInForm(request.POST)
-    if form.is_valid():
-        email = form.cleaned_data['username']
-        password = form.cleaned_data['password']
+    if request.method == 'POST':
+        if FormNames.LOGIN.value in request.POST:
+            context['form_name'] = FormNames.LOGIN.value
 
-        authenticated_user = authenticate(request, email=email, password=password)
-        if authenticated_user:
-            login(request, authenticated_user)
-            return redirect('profile')
-    return user_auth(request)
+            form = UserLoginForm(request.POST)
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                user = authenticate(request, email=email, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect('profile')
+                else:
+                    form.add_error(None, 'Неверный email или пароль')
 
-def user_register(request: WSGIRequest):
-    form = UserRegistrationForm(request.POST)
-    if form.is_valid():
-        user = form.save()
-        user.set_password(form.cleaned_data['password'])
-        user.save()
+        elif FormNames.REGISTER.value in request.POST:
+            context['form_name'] = FormNames.REGISTER.value
 
-        authenticated_user = authenticate(email=user.email, password=form.cleaned_data['password'])
-        if authenticated_user:
-            login(request, authenticated_user)
+            form = RegistrationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('profile')
+    else:
+        context['form_name'] = FormNames.LOGIN.value
+        context['form'] = UserLoginForm()
 
-        return redirect('profile')
+    return render(request, 'user/auth.html', context=context)
 
 @login_required(login_url='user_auth')
 def user_logout(request: WSGIRequest):

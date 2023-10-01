@@ -27,7 +27,7 @@ def get_walk_form(request: WSGIRequest, animal=None, only_form=False):
     start_in = get_available_pet_walk_time(
         selected_day=dt.datetime.strptime(initial_values['date'], '%Y-%m-%d'),
         walk_times=walk_times,
-        duration_min=initial_values['duration'],
+        duration=initial_values['duration'],
     )
 
     walk_form = PetWalkForm(initial=initial_values)

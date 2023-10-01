@@ -3,10 +3,11 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-    phone = models.CharField(max_length=20, verbose_name='Телефон')
+    first_name = models.CharField(max_length=30, blank=True, verbose_name='Имя')
+    last_name = models.CharField(max_length=30, blank=True, verbose_name='Фамилия')
+
+    email = models.EmailField(unique=True)
     media = models.CharField(max_length=255, null=True, blank=True, verbose_name='Фото')
 
-    REQUIRED_FIELDS = ['first_name', 'last_name','email', 'phone']
-
     def __str__(self):
-        return self.email
+        return f'<{self.__class__.__name__} - {self.email}'

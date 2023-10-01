@@ -1,8 +1,8 @@
 <div id='auth-forms' class="auth-forms">
-    <form action="{% url 'user_sign_in' %}" method="POST">
+    <form action="{% url 'user_auth' %}" method="POST">
         {% csrf_token %}
         {{ form }}
-
+        <input type="hidden" name="{{ form_name }}">
         <div class="btns">
             <button class="btn" type="submit">Войти</button>
             <button class="btn" hx-trigger="click" hx-get="{% url 'user_register_html_form' %}" hx-target="#auth-forms" hx-swap="outerHTML">Нет аккаунта?</button>
