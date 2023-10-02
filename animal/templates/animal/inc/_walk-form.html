@@ -1,7 +1,7 @@
 
 
 
-<form method="post" class="walk-form" hx-post="/animal/get_walk_form/" hx-swap="outerHTML" hx-trigger="change">
+<form action="{% url 'animal_schedule' animal_id=animal.id %}" method="post" class="walk-form" hx-post="{% url 'get_walk_form' animal_id=animal.id %}" hx-swap="outerHTML" hx-trigger="change">
 
     <div class="title">Прогулка</div>
     {% csrf_token %}

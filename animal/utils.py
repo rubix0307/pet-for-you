@@ -2,6 +2,9 @@ import datetime as dt
 from datetime import datetime, timedelta
 from typing import List, Union
 
+from .models import Schedule
+
+
 def comb(hour, minute, day: datetime=datetime.now()):
     return datetime.combine(day, dt.time(hour=hour, minute=minute))
 
@@ -17,12 +20,17 @@ def round_minutes_to_nearest_value(d_time, value=15):
     return rounded_dt
 
 def get_available_pet_walk_time(
-        walk_times:List[datetime],
+        walk_times:List[Schedule],
         selected_day=datetime.now(),
         duration=15,
         start_hour=8,
         end_hour=18,
 ):
+    if isinstance(selected_day, str):
+        selected_day = datetime.strptime(selected_day, '%Y-%m-%d')
+
+    walk_times = [(wt.start_time.replace(tzinfo=None), wt.end_time.replace(tzinfo=None)) for wt in walk_times]
+
     step_minutes = 15
     duration_in_steps = duration / step_minutes
     walk_times = [wt for wt in walk_times if wt[0].month == selected_day.month and wt[0].day == selected_day.day]
@@ -35,16 +43,18 @@ def get_available_pet_walk_time(
 
     cursor = start.replace()
     while cursor < end:
-        day_slots.append(cursor)
+        day_slots.append(cursor.replace(tzinfo=None))
         cursor += timedelta(minutes=step_minutes)
     day_slots.append(end)
 
     for walk_start, walk_end in walk_times:
-        cursor = walk_start.replace()
+        cursor = walk_start.replace(tzinfo=None)
+
         if cursor.month == start.month and cursor.day == start.day:
             while cursor < walk_end:
                 day_slots.pop(day_slots.index(cursor))
                 cursor += timedelta(minutes=step_minutes)
+
 
     available_slots = []
 
