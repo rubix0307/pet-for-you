@@ -2,9 +2,11 @@ import random
 import unittest
 import datetime as dt
 from datetime import datetime
+from django.urls import reverse
+from django.test import TestCase, Client
 
-from django.test import TestCase
-
+from animal.models import Animal, Feedback
+from user.models import CustomUser
 from animal.utils import comb, get_available_pet_walk_time
 
 
@@ -111,4 +113,76 @@ class TestWalkSchedule(unittest.TestCase):
         self.assertEqual(next_selected_daty_walk, expected_result)
         self.assertEqual(empty_walk_times, expected_result)
 
+class TestFeedback(TestCase):
+    fixtures = ["test_data.json"]
 
+    def setUp(self):
+        self.email = 'miroshnichenkoartem0307@gmail.com'
+        self.password = '12345'
+
+        self.c = Client()
+        is_login = self.c.login(email=self.email, password=self.password)
+
+        self.user = CustomUser.objects.filter(email=self.email).first()
+        self.animal = Animal.objects.first()
+
+    def test_correct_add(self):
+        animal_feedbacks_count_before = len(Feedback.objects.filter(user=self.user, animal=self.animal).all())
+
+        data_feedback = dict(
+            title='title',
+            text='text'
+        )
+        response = self.c.post(reverse('animal_feedback', kwargs={'animal_id': self.animal.id}), data=data_feedback)
+        animal_feedbacks_count_after = len(Feedback.objects.filter(user=self.user, animal=self.animal).all())
+
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(animal_feedbacks_count_before + 1, animal_feedbacks_count_after)
+
+    def test_incorrect_user(self):
+        c = Client()
+
+        animal_feedbacks_count_before = len(Feedback.objects.filter(animal=self.animal).all())
+
+        data_feedback = dict(
+            title='title',
+            text='text'
+        )
+        response = c.post(reverse('animal_feedback', kwargs={'animal_id': self.animal.id}), data=data_feedback)
+        animal_feedbacks_count_after = len(Feedback.objects.filter(animal=self.animal).all())
+
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(animal_feedbacks_count_before, animal_feedbacks_count_after)
+
+    def test_incorrect_data(self):
+
+        animal_feedbacks_count_before = len(Feedback.objects.filter(animal=self.animal).all())
+
+        data_feedback = dict(
+            title='',
+            text=''
+        )
+        response = self.c.post(reverse('animal_feedback', kwargs={'animal_id': self.animal.id}), data=data_feedback)
+        animal_feedbacks_count_after = len(Feedback.objects.filter(animal=self.animal).all())
+
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(animal_feedbacks_count_before, animal_feedbacks_count_after)
+
+class TestRecordsSchedule(TestCase):
+    fixtures = ["test_data.json"]
+
+    def setUp(self):
+        self.email = 'miroshnichenkoartem0307@gmail.com'
+        self.password = '12345'
+
+        self.c = Client()
+        is_login = self.c.login(email=self.email, password=self.password)
+
+        self.user = CustomUser.objects.filter(email=self.email).first()
+        self.animal = Animal.objects.first()
+
+    def test_write(self):
+        pass
+
+    def test_write_not_unique_date(self):
+        pass
