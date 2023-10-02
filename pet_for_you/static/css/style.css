@@ -422,6 +422,7 @@ footer .data{
     flex-direction: column;
     padding: 15px;
     width: min(100%, calc(360px));
+    height: max-content;
     border: 6px #68686861 solid;
     border-radius: 20px;
     transition: 0.5s;
@@ -437,11 +438,13 @@ footer .data{
 }
 .feedback-form textarea{
 
-    resize:vertical;
-    min-height: 80px;
-    max-height: 400px;
-    height: 80px;
+resize:vertical;
 
+min-height: 82px;
+
+max-height: 400px;
+
+height: 80px;
 }
 
 .feedback-form textarea,
@@ -517,7 +520,16 @@ label.row {
 }
 .feedbacks .feedback .text {
     font-size: 20px;
-
+}
+.feedbacks .feedback .user{
+    transition: 0.5s;
+    border-radius: 5px;
+    padding: 2px 0;
+    weight: fit-content;
+}
+.feedbacks .feedback:hover .user{
+    padding-left: 20px;
+    background-color: #ffa500cc;
 }
 @keyframes rotateCounterclockwise {
     from {
