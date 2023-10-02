@@ -62,7 +62,10 @@ class Schedule(models.Model):
     user = models.ForeignKey('user.customuser', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.id
+        return f'{self.id} - {self.start_time}'
+
+    def __repr__(self):
+        return self.__str__()
 
     class Meta:
         verbose_name = 'Расписание'
