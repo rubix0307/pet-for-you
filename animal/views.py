@@ -1,13 +1,14 @@
 import datetime as dt
+from dataclasses import dataclass
+import pytz
 from django.conf import settings
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.core.handlers.wsgi import WSGIRequest
+from django.contrib import messages
 from .models import Animal, Sex, Feedback, Schedule
 from .forms import PetWalkForm, FeedbackForm
 from .utils import get_available_pet_walk_time
-from dataclasses import dataclass
-import pytz
 
 
 def animal_index(request: WSGIRequest):
@@ -83,6 +84,11 @@ def animal_schedule(request: WSGIRequest, animal_id):
 
         selected_day = request.POST.get('date')
         duration = int(request.POST.get('duration'))
+        try:
+            start_in = dt.datetime.strptime(request.POST.get('start_in',''), '%Y-%m-%d %H:%M:%S')
+        except ValueError:
+            messages.error(request, 'Не указано время начала прогулки')
+            return redirect('animal_detail', animal_id=animal_id)
 
         walk_times = Schedule.objects.filter(animal=animal).all()
 
@@ -92,7 +98,6 @@ def animal_schedule(request: WSGIRequest, animal_id):
             duration=duration,
         )
 
-        start_in = dt.datetime.strptime(request.POST.get('start_in'), '%Y-%m-%d %H:%M:%S')
         if start_in in available_times:
             end_time = (start_in + dt.timedelta(minutes=duration))
 
@@ -103,6 +108,8 @@ def animal_schedule(request: WSGIRequest, animal_id):
                 user=request.user,
             )
             schedule_entry.save()
+        else:
+            messages.error(request, 'Выбранное время, уже занято')
 
     return redirect('animal_detail', animal_id=animal_id)
 

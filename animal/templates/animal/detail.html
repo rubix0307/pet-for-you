@@ -14,6 +14,9 @@
 
         <div class="description">{{ animal.description|linebreaks }}</div>
 
+
+        {% include 'main/inc/_messages.html' %}
+
         <div class="forms_row">
             {% include 'animal/inc/_walk-form.html' %}
             {% include 'animal/inc/_feedback-form.html' %}
