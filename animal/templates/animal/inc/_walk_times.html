@@ -1,0 +1,27 @@
+<div class="walk_times">
+
+    {% if walk_times %}
+
+        <h2>Ваши запланированные прогулки</h2>
+        <div class="future_walks">
+            {% for walk_time in walk_times %}
+                <div class="walk">
+                    <div class="time_data">
+                        <div class="date">Дата прогулки: <div class="value">{{ walk_time.start_time|date:"Y-m-d" }}</div></div>
+                        <ul class="times">
+                            <li>Начало: <div class="value">{{ walk_time.start_time|date:"H:i" }}</div></li>
+                            <li>Конец: <div class="value">{{ walk_time.end_time|date:"H:i" }}</div> </li>
+                        </ul>
+                    </div>
+                </div>
+                {% if not forloop.last %}
+                    <hr>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <div class="empty">Запланируй прогулку, сделай жизнь животного ярче!</div>
+    {% endif %}
+
+</div>

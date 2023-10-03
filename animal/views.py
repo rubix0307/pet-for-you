@@ -1,5 +1,6 @@
 import datetime as dt
 from django.conf import settings
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.core.handlers.wsgi import WSGIRequest
 from .models import Animal, Sex, Feedback, Schedule
@@ -58,11 +59,20 @@ def animal_detail(request: WSGIRequest, animal_id):
 
     animal = Animal.objects.get(id=animal_id)
     feedbacks = Feedback.objects.filter(animal=animal)
+
+    today = dt.date.today()
+    walk_times = Schedule.objects.filter(
+        Q(start_time__date__gte=today),
+        animal=animal,
+        user=request.user
+    ).order_by('start_time').all()
+
     context = dict(
         animal=animal,
         walk_form=get_walk_form(request, animal, only_form=True),
         feedback_form=FeedbackForm(),
         feedbacks=feedbacks,
+        walk_times=walk_times,
     )
 
     return render(request, 'animal/detail.html', context=context)

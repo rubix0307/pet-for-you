@@ -1,14 +1,17 @@
 <div class="feedbacks">
-
-    {% for feedback in feedbacks %}
-        <div class="feedback">
-            <div class="title">{{ feedback.title }}</div>
-            <div class="text">{{ feedback.text|linebreaks }}</div>
-            <div class="animal"><a href="{% url 'animal_detail' animal_id=feedback.animal.id %}">{{ feedback.animal.name }} ({{ feedback.animal.breed }})</a></div>
-            <div class="user">Автор: {{ feedback.user.first_name }} {{ feedback.user.last_name }}</div>
-        </div>
-    {% endfor %}
-
+    <h2>Отзывы</h2>
+    {% if feedbacks %}
+        {% for feedback in feedbacks %}
+            <div class="feedback">
+                <div class="title">{{ feedback.title }}</div>
+                <div class="text">{{ feedback.text|linebreaks }}</div>
+                <div class="animal"><a href="{% url 'animal_detail' animal_id=feedback.animal.id %}">{{ feedback.animal.name }} ({{ feedback.animal.breed }})</a></div>
+                <div class="user">Автор: {{ feedback.user.first_name }} {{ feedback.user.last_name }}</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty">Список пока пуст, но ты можешь его пополнить</div>
+    {% endif %}
 </div>
 
 
