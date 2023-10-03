@@ -1,13 +1,13 @@
 import random
-import unittest
 import datetime as dt
 from datetime import datetime
 from django.urls import reverse
 from django.test import TestCase, Client
+import unittest
 
-from animal.models import Animal, Feedback
+from .models import Animal, Feedback, Schedule
+from .utils import comb, get_available_pet_walk_time
 from user.models import CustomUser
-from animal.utils import comb, get_available_pet_walk_time
 
 
 class TestWalkSchedule(unittest.TestCase):
@@ -181,8 +181,54 @@ class TestRecordsSchedule(TestCase):
         self.user = CustomUser.objects.filter(email=self.email).first()
         self.animal = Animal.objects.first()
 
-    def test_write(self):
-        pass
+    def test_write_normal_and_duplicated(self):
+        last_walks = Schedule.objects.filter(animal=self.animal).count()
+        data = dict(
+            date='2023-10-03',
+            duration=15,
+            start_in='2023-10-03 08:00:00'
+        )
+        response = self.c.post(reverse('animal_schedule', kwargs={'animal_id': self.animal.id}), data=data)
+        new_walks = Schedule.objects.filter(animal=self.animal).count()
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(last_walks + 1, new_walks)
 
-    def test_write_not_unique_date(self):
-        pass
+        second_response = self.c.post(reverse('animal_schedule', kwargs={'animal_id': self.animal.id}), data=data)
+        second_response_walks = Schedule.objects.filter(animal=self.animal).count()
+
+        self.assertEquals(second_response.status_code, 302)
+        self.assertEquals(new_walks, second_response_walks)
+
+    def test_off_hours(self):
+        last_walks = Schedule.objects.filter(animal=self.animal).count()
+        data = dict(
+            date='2023-10-03',
+            duration=15,
+            start_in='2023-10-03 07:45:00'
+        )
+        response = self.c.post(reverse('animal_schedule', kwargs={'animal_id': self.animal.id}), data=data)
+        new_walks = Schedule.objects.filter(animal=self.animal).count()
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(last_walks, new_walks)
+
+        data = dict(
+            date='2023-10-03',
+            duration=15,
+            start_in='2023-10-03 18:00:00'
+        )
+        response = self.c.post(reverse('animal_schedule', kwargs={'animal_id': self.animal.id}), data=data)
+        new_walks = Schedule.objects.filter(animal=self.animal).count()
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(last_walks, new_walks)
+
+    def test_last_time(self):
+        last_walks = Schedule.objects.filter(animal=self.animal).count()
+        data = dict(
+            date='2023-10-03',
+            duration=15,
+            start_in='2023-10-03 17:45:00'
+        )
+        response = self.c.post(reverse('animal_schedule', kwargs={'animal_id': self.animal.id}), data=data)
+        new_walks = Schedule.objects.filter(animal=self.animal).count()
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(last_walks+1, new_walks)
