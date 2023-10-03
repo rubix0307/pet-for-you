@@ -531,6 +531,46 @@ label.row {
     padding-left: 20px;
     background-color: #ffa500cc;
 }
+
+hr{
+    height: 2px;
+    width: 100%;
+}
+.walk_times .future_walks {
+    display: flex;
+    flex-direction:column;
+    .walk .time_data{
+        font-size: 20px;
+
+        .date {
+
+            display: flex;
+            justify-content: space-between;
+        }
+        .times {
+            list-style: none;
+            padding: 0 0 0 15px;
+            margin: 0;
+        }
+        .times li{
+            display: flex;
+            justify-content: space-between;
+
+        }
+    }
+    .walk .value {
+        transition: 0.2s;
+        font-weight: 600;
+    }
+    .walk:hover .value {
+        color: orange;
+        font-weight: 900;
+    }
+}
+
+
+
+
 @keyframes rotateCounterclockwise {
     from {
         transform: rotate(0deg);
